@@ -55,9 +55,11 @@ export function* authCheckStateSaga() {
 }
 
 export function* logoutSaga() {
-    yield localStorage.removeItem('token');
-    yield localStorage.removeItem('expirationDate');
-    yield localStorage.removeItem('userId');
+    // using the call method allows for unit testing 
+    // it allows you to mock the data 
+    yield call([localStorage, 'removeItem'],'token')
+    yield call([localStorage, 'removeItem'],'expirationDate')
+    yield call([localStorage, 'removeItem'],'userId')
 
     // 'put' in this case will dispatch the action 'AUTH_LOGOUT'
     // yield put({
